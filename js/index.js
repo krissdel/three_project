@@ -1,3 +1,7 @@
+import * as THREE from "three";
+
+import * as dat from "dat.gui";
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -8,24 +12,30 @@ const camera = new THREE.PerspectiveCamera(
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-render.seetPixelRatio(devicePixelRation); // if the cube sides ares blur
+render.seetPixelRatio(devicePixelRation); // if the cube sides are blur
 
 document.body.appendChild(renderer.domElement);
 
+scene.add(mesh);
+camera.position.z = 5;
 const geometry = new THREE.BoxGeometry(1, 1, 1);
+
 const material = new THREE.MeshBasicMaterial({
     color: "blue",
 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-camera.position.z = 5;
+const mesh = new THREE.Mesh(geometry, material);
+const planMaterial = new THREE.MeshBasicMaterial({
+    color: 0xff0000,
+    site: THREE.DoubleSide,
+});
+const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+scene.add(planeMesh);
 
 function animate() {
     requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
 
     renderer.render(scene, camera);
 }
